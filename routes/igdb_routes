@@ -44,6 +44,7 @@ router.post("/generate_token", async (req, res) => {
     res.send(error);
   }
 });
+// test
 
 // Look up game and grab cover to add to group list
 router.post("/get_game_cover", async (req, res) => {
