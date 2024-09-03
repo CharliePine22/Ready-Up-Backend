@@ -29,7 +29,6 @@ router.post("/generate_token", async (req, res) => {
   const url = "https://id.twitch.tv/oauth2/token";
   const clientSecret = "uuiyek6orrze46a131vzi0ef62s39d";
   const clientId = "6f6lb21y9766gzprefym4vq4elgsib";
-  const test = "";
   try {
     const tokenRequest = await fetch(url, {
       method: "POST",
