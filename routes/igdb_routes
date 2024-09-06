@@ -1,20 +1,20 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const fetch = require("cross-fetch");
+const fetch = require('cross-fetch');
 
-router.post("/generate_token", async (req, res) => {
-  const clientSecret = "uuiyek6orrze46a131vzi0ef62s39d";
-  const clientId = "6f6lb21y9766gzprefym4vq4elgsib";
+router.post('/generate_token', async (req, res) => {
+  const clientSecret = process.env.TWITCH_CLIENT_SECRET;
+  const clientId = process.env.TWITCH_CLIENT_ID;
   try {
     const tokenRequest = await fetch(
-      "https://id.twitch.tv/oauth2/token?" +
+      'https://id.twitch.tv/oauth2/token?' +
         new URLSearchParams({
-          grant_type: "client_credentials",
+          grant_type: 'client_credentials',
           client_id: clientId,
           client_secret: clientSecret,
         }).toString(),
       {
-        method: "POST",
+        method: 'POST',
       }
     );
     const tokenStatus = await tokenRequest.json();
@@ -25,18 +25,18 @@ router.post("/generate_token", async (req, res) => {
 });
 
 // Look up game and grab cover to add to group list
-router.post("/get_game_cover", async (req, res) => {
+router.post('/get_game_cover', async (req, res) => {
   const token = req.body.token;
   const gameName = req.body.gameName;
   const headers = {
-    "Client-ID": "6f6lb21y9766gzprefym4vq4elgsib",
+    'Client-ID': '6f6lb21y9766gzprefym4vq4elgsib',
     Authorization: `Bearer ${token}`,
   };
 
   const url = `https://api.igdb.com/v4/games`;
   try {
     const request = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       headers: headers,
       body: `fields *, cover.*, genres.*; where name ~ *"${gameName}"* & rating_count > 0 & cover != null & (rating != null & category != (1,3,34)); limit 10;`,
     });

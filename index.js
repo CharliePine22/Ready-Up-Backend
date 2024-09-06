@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const cors = require('cors');
-session = require('express-session');
+const session = require('express-session');
 // Route imports
 const igdbRoutes = require('./routes/igdb_routes');
 
@@ -10,7 +10,11 @@ dotenv.config();
 
 // Coors
 const corsOptions = {
-  origin: ['http://localhost:8081'],
+  origin: [
+    'http://localhost:8081',
+    '10.0.0.78:8081',
+    'https://ready-up-backend.onrender.com',
+  ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
