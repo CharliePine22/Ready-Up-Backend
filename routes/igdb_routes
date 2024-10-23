@@ -38,7 +38,7 @@ router.post('/get_game_cover', async (req, res) => {
     const request = await fetch(url, {
       method: 'POST',
       headers: headers,
-      body: `fields *, alternative_names.*, cover.*, game_modes.*, genres.*, multiplayer_modes.*, websites.*; sort rating desc; where (name ~ *"${gameName}"* | alternative_names.name ~ *"${gameName}"*) & rating_count > 0 & cover != null & rating != null & category = (0); limit 10;`,
+      body: `fields *, artworks.*, alternative_names.*, cover.*, game_modes.*, genres.*, multiplayer_modes.*, websites.*; sort rating desc; where (name ~ *"${gameName}"* | alternative_names.name ~ *"${gameName}"*) & rating_count > 0 & cover != null & rating != null & category = (0); limit 10;`,
     });
     // & category != (1,3,34)
     const result = await request.json();
